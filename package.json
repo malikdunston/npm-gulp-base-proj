@@ -1,0 +1,21 @@
+{
+        "name": "npm-gulp-base-proj",
+        "version": "1.0.0",
+        "description": "starter code for npm, gulp, sass",
+        "main": "index.html",
+        "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+        },
+        "repository": {
+                "type": "git",
+                "url": "https://github.gatech.edu/cdunston3/npm-gulp-base-proj.git"
+        },
+        "author": "Malik Dunston",
+        "license": "ISC",
+        "dependencies": {},
+        "devDependencies": {
+                "browser-sync": "^2.26.14",
+                "gulp": "^4.0.2",
+                "gulp-cache": "^1.1.3"
+        }
+}
