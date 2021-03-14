@@ -1,0 +1,28 @@
+:root{
+	font-size: 24px;
+}
+*{
+	margin: 0;
+	padding: 0;
+	letter-spacing: 0em;
+	box-sizing: border-box;
+	line-height: 1em;
+}
+
+@import 
+	"brand/typography", "brand/colors",
+	"components/content.scss";
+
+body{
+	font-family: $ss;
+	background: $bg;
+	color: $w;
+	a{
+		color: black;
+		text-decoration: none;
+		text-underline-offset: .15em;
+		&:hover{
+			text-decoration: underline dotted;
+		}
+	}
+}

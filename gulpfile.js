@@ -1,49 +1,54 @@
 'use strict';
- 
-// dependencies
+
 var gulp = require('gulp');
 var cache = require("gulp-cache");
 var browserSync = require("browser-sync").create();
+var sass = require('gulp-sass');
+var minifyCSS = require('gulp-clean-css');
+var rename = require('gulp-rename');
+var changed = require('gulp-changed');
 
-// clear Cache on reload
-function clearCache() {
-        let projFiles = [
-                "./**",
-                "./**/**/**/*.html",
-                "./**/**/**/*.js",
-                "./**/**/**/*.php",
-                "./**/**/**/*.css",
-                "./**/**/**/*.scss",
-                "./**/**/**/*.svg"
-        ];
-        gulp.watch(projFiles).on("change", function(){
-                cache.clearAll();
-        });
+var SCSS_WATCH = './assets/scss/**/*.scss';
+var SCSS_SRC = './assets/scss/index.scss';
+var SCSS_DEST = './';
+
+function compile_scss() {
+	return gulp.src(SCSS_SRC)
+		.pipe(sass().on('error', sass.logError))
+		.pipe(minifyCSS())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(changed(SCSS_SRC))
+		.pipe(gulp.dest(SCSS_DEST));
 };
 
-function serve(){
-        browserSync.init({
-        // you'll need to define a server,
-        // perhaps a baseDir as well if your "public" files are nested.
-                server: "./",
-        // if you're working in wamp or related you'll need a proxy
-                // port: "port-number", // maybe not needed
-                // proxy: "your site name in your local server"
-        });
-// ./**/**/** = basically just try and search all nested directories. */ */ */
-        let projFiles = [
-                "./**",
-                "./**/**/**/*.html",
-                "./**/**/**/*.js",
-                "./**/**/**/*.php",
-                "./**/**/**/*.svg"
-        ]
-        gulp.watch(projFiles).on("change", browserSync.reload);
+function watch_scss() {
+	gulp.watch(SCSS_WATCH, compile_scss);
+};
+
+function clearCache() {
+	cache.clearAll();
+};
+
+var projFiles = [
+	"./**",
+	"./**/**/**/*.php",
+	"./**/**/**/*.js",
+	"./**/**/**/*.svg",
+	"./**/**/**/*.html",
+	"./**/**/**/*.scss",
+	"./**/**/**/*.css"
+];
+
+function serve() {
+	browserSync.init({
+		server: "./",
+	});
+	gulp.watch(projFiles).on("change", gulp.parallel(browserSync.reload, clearCache));
 }
 
-// the array as second arg was replaced by gulp.series()
-// gulp.parallel does the same but at same time...
-gulp.task('default', gulp.parallel(clearCache, serve));
- 
+gulp.task('default', gulp.parallel(serve, watch_scss));
+
 exports.clearCache = clearCache;
 exports.serve = serve;
+exports.compile_scss = compile_scss;
+exports.watch_scss = watch_scss;

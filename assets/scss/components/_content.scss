@@ -1,0 +1,18 @@
+.content{
+	width: 90vw;
+	padding: 1.25rem;
+	background: white;
+	margin: 1em auto;
+	a{
+		display: inline-block;
+		margin-bottom: .7em;
+	}
+	code{
+		background: $w;
+		color: $bg;
+		padding: .5rem .875rem;
+		display: inline-block;
+		font-size: .7em;
+		// line-height: 1em;
+	}
+}

@@ -36,9 +36,10 @@
         npm install browser-sync
 
 
-### in your .gitigmore:
+### in your .gitigmore file (without beginning/end "s):
 
-        "# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+        "
+	# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
         # dependencies
         /node_modules
@@ -60,5 +61,6 @@
 
         npm-debug.log*
         yarn-debug.log*
-        yarn-error.log*"
+        yarn-error.log*
+	"
 
